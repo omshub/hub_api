@@ -15,10 +15,9 @@ defmodule HubApi.Application do
       # Start the PubSub system
       {Phoenix.PubSub, name: HubApi.PubSub},
       # Start the Endpoint (http/https)
-      HubApiWeb.Endpoint,
+      HubApiWeb.Endpoint
       # Start a worker by calling: HubApi.Worker.start_link(arg)
       # {HubApi.Worker, arg}
-      HubApi.DataEngine
     ]
 
     # See https://hexdocs.pm/elixir/Supervisor.html

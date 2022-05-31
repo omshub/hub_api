@@ -11,7 +11,15 @@ defmodule HubApiWeb.Router do
   end
 
   pipeline :api do
+    plug CORSPlug
     plug :accepts, ["json"]
+  end
+
+  scope "/api", HubApiWeb do
+    pipe_through :api
+
+    resources "/classes", ClassController, only: [:index]
+    resources "/reviews", ReviewController
   end
 
   scope "/", HubApiWeb do
