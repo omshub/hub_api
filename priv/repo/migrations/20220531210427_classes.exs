@@ -10,6 +10,7 @@ defmodule HubApi.Repo.Migrations.Classes do
       add :link, :string
       add :department, :string
       add :name, :string
+      timestamps()
     end
   end
 end

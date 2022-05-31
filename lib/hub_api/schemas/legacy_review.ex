@@ -9,7 +9,8 @@ defmodule HubApi.Schema.Review do
              :workload,
              :body,
              :course_id,
-             :created
+             :created,
+             :is_legacy
            ]}
 
   schema "legacy_reviews" do
@@ -20,5 +21,6 @@ defmodule HubApi.Schema.Review do
     field :body, :string
     field :course_id, :string
     field :created, :string
+    field :is_legacy, :boolean
   end
 end

@@ -10,6 +10,7 @@ defmodule HubApi.Repo.Migrations.LegacyReviews do
       add :body, :text
       add :course_id, :string
       add :created, :string
+      add :is_legacy, :boolean
     end
   end
 end
