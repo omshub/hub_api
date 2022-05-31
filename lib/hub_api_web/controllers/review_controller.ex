@@ -10,7 +10,7 @@ defmodule HubApiWeb.ReviewController do
     query =
       from(LegacyReview,
         where: [course_id: ^course_id],
-        order_by: :created,
+        order_by: [desc: :created],
         select: [:semester_id, :rating, :difficulty, :workload, :body, :course_id, :created]
       )
 
