@@ -20,7 +20,7 @@ defmodule HubApi.Schema.LegacyReview do
     field :workload, :string
     field :body, :string
     field :course_id, :string
-    field :created, :string
+    field :created, :utc_datetime
     field :is_legacy, :boolean
   end
 end

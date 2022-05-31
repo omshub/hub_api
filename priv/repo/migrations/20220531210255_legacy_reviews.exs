@@ -9,7 +9,7 @@ defmodule HubApi.Repo.Migrations.LegacyReviews do
       add :workload, :string
       add :body, :text
       add :course_id, :string
-      add :created, :string
+      add :created, :utc_datetime
       add :is_legacy, :boolean
     end
   end

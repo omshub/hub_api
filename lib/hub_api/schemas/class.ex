@@ -20,5 +20,6 @@ defmodule HubApi.Schema.Class do
     field :link, :string
     field :department, :string
     field :name, :string
+    timestamps()
   end
 end

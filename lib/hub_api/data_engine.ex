@@ -33,11 +33,18 @@ defmodule HubApi.DataEngine do
     load_readonly_data("https://omshub-data.s3.amazonaws.com/data/omscentral_reviews.json")
     |> Jason.decode!()
     |> Enum.map(fn review ->
-      data = Repo.get_by(Review, created: review["created"])
+      created_timestamp = review["created"]
+      |> String.to_integer()
+      |> DateTime.from_unix!(:millisecond)
+      |> DateTime.truncate(:second)
+
+      data = Repo.get_by(LegacyReview, created: created_timestamp)
       rating = if review["rating"], do: String.to_integer(review["rating"]), else: 0
       difficulty = if review["difficulty"], do: String.to_integer(review["difficulty"]), else: 0
 
       if is_nil(data) do
+        # created_timestamp = review["created"] |> String.to_integer() |> DateTime.from_unix!(:millisecond)
+
         Repo.insert!(%LegacyReview{
           semester_id: review["semester_id"],
           rating: rating,
@@ -45,7 +52,8 @@ defmodule HubApi.DataEngine do
           workload: review["workload"],
           body: review["body"],
           course_id: review["course_id"],
-          created: review["created"]
+          created: created_timestamp,
+          is_legacy: true
         })
       end
     end)

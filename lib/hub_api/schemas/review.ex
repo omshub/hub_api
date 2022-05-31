@@ -18,5 +18,6 @@ defmodule HubApi.Schema.Review do
     field :workload_hours, :string
     field :comment, :string
     field :semester, :string
+    timestamps()
   end
 end
