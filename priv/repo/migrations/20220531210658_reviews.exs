@@ -8,6 +8,7 @@ defmodule HubApi.Repo.Migrations.Review do
       add :difficulty, :integer
       add :workload_hours, :integer
       add :comment, :text
+      add :semester, :string
       timestamps()
     end
   end

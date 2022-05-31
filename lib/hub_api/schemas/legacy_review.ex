@@ -1,4 +1,4 @@
-defmodule HubApi.Schema.Review do
+defmodule HubApi.Schema.LegacyReview do
   use Ecto.Schema
 
   @derive {Jason.Encoder,
