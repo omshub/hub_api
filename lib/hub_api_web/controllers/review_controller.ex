@@ -11,7 +11,7 @@ defmodule HubApiWeb.ReviewController do
       from(LegacyReview,
         where: [course_id: ^course_id],
         order_by: [desc: :created],
-        select: [:semester_id, :rating, :difficulty, :workload, :body, :course_id, :created]
+        select: [:semester_id, :rating, :difficulty, :workload, :body, :course_id, :created, :is_legacy]
       )
 
     res = Repo.all(query)
