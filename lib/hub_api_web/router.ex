@@ -23,6 +23,14 @@ defmodule HubApiWeb.Router do
 
     resources "/classes", ClassController, only: [:index]
     resources "/reviews", ReviewController
+
+    # get "/auth", AuthController, :index
+    # patch "/auth", AuthController, :update
+    # post "/auth/login", AuthController, :login
+    post "/users/register", UserRegistrationController, :create
+    # post "/auth/confirm_email", AuthController, :confirm_email
+    # post "/auth/forgot_password", AuthController, :forgot_password
+    # post "/auth/reset_password", AuthController, :reset_password
   end
 
   scope "/", HubApiWeb do
@@ -30,11 +38,6 @@ defmodule HubApiWeb.Router do
 
     get "/", PageController, :index
   end
-
-  # Other scopes may use custom stacks.
-  # scope "/api", HubApiWeb do
-  #   pipe_through :api
-  # end
 
   # Enables LiveDashboard only for development
   #
@@ -67,34 +70,34 @@ defmodule HubApiWeb.Router do
 
   ## Authentication routes
 
-  scope "/", HubApiWeb do
-    pipe_through [:browser, :redirect_if_user_is_authenticated]
+  # scope "/api", HubApiWeb do
+  #   pipe_through [:api, :redirect_if_user_is_authenticated]
 
-    get "/users/register", UserRegistrationController, :new
-    post "/users/register", UserRegistrationController, :create
-    get "/users/log_in", UserSessionController, :new
-    post "/users/log_in", UserSessionController, :create
-    get "/users/reset_password", UserResetPasswordController, :new
-    post "/users/reset_password", UserResetPasswordController, :create
-    get "/users/reset_password/:token", UserResetPasswordController, :edit
-    put "/users/reset_password/:token", UserResetPasswordController, :update
-  end
+  #   # get "/users/register", UserRegistrationController, :new
+  #   post "/users/register", UserRegistrationController, :create
+  #   get "/users/log_in", UserSessionController, :new
+  #   post "/users/log_in", UserSessionController, :create
+  #   get "/users/reset_password", UserResetPasswordController, :new
+  #   post "/users/reset_password", UserResetPasswordController, :create
+  #   get "/users/reset_password/:token", UserResetPasswordController, :edit
+  #   put "/users/reset_password/:token", UserResetPasswordController, :update
+  # end
 
-  scope "/", HubApiWeb do
-    pipe_through [:browser, :require_authenticated_user]
+  # scope "/api", HubApiWeb do
+  #   pipe_through [:api, :require_authenticated_user]
 
-    get "/users/settings", UserSettingsController, :edit
-    put "/users/settings", UserSettingsController, :update
-    get "/users/settings/confirm_email/:token", UserSettingsController, :confirm_email
-  end
+  #   get "/users/settings", UserSettingsController, :edit
+  #   put "/users/settings", UserSettingsController, :update
+  #   get "/users/settings/confirm_email/:token", UserSettingsController, :confirm_email
+  # end
 
-  scope "/", HubApiWeb do
-    pipe_through [:browser]
+  # scope "/api", HubApiWeb do
+  #   pipe_through [:api]
 
-    delete "/users/log_out", UserSessionController, :delete
-    get "/users/confirm", UserConfirmationController, :new
-    post "/users/confirm", UserConfirmationController, :create
-    get "/users/confirm/:token", UserConfirmationController, :edit
-    post "/users/confirm/:token", UserConfirmationController, :update
-  end
+  #   delete "/users/log_out", UserSessionController, :delete
+  #   get "/users/confirm", UserConfirmationController, :new
+  #   post "/users/confirm", UserConfirmationController, :create
+  #   get "/users/confirm/:token", UserConfirmationController, :edit
+  #   post "/users/confirm/:token", UserConfirmationController, :update
+  # end
 end

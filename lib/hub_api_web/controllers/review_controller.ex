@@ -7,11 +7,21 @@ defmodule HubApiWeb.ReviewController do
 
   def show(conn, params) do
     course_id = params["id"]
+
     query =
       from(LegacyReview,
         where: [course_id: ^course_id],
         order_by: [desc: :created],
-        select: [:semester_id, :rating, :difficulty, :workload, :body, :course_id, :created, :is_legacy]
+        select: [
+          :semester_id,
+          :rating,
+          :difficulty,
+          :workload,
+          :body,
+          :course_id,
+          :created,
+          :is_legacy
+        ]
       )
 
     res = Repo.all(query)
