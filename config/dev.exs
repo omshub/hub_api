@@ -28,6 +28,25 @@ config :hub_api, HubApiWeb.Endpoint,
     esbuild: {Esbuild, :install_and_run, [:default, ~w(--sourcemap=inline --watch)]}
   ]
 
+config :cors_plug,
+  origin: [
+    ~r/https?:\/\/(.+\.)?omshub\.(org)(:\d{1,5})?$/,
+    "https://omshub-api.gigalixirapp.com/",
+    "http://localhost:4000",
+    "http://localhost:3000"
+  ],
+  headers: [
+    "Access-Control-Allow-Origin",
+    "Access-Control-Allow-Credentials",
+    "Access-Control-Expose-Headers",
+    "Access-Control-Allow-Headers",
+    "Access-Control-Allow-Methods",
+    "Pragma",
+    "Expires",
+    "Cache-Control",
+    "Content-Type"
+  ]
+
 # ## SSL Support
 #
 # In order to use HTTPS in development, a self-signed

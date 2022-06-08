@@ -14,8 +14,10 @@ defmodule HubApiWeb.Router do
   end
 
   pipeline :api do
-    plug CORSPlug
     plug :accepts, ["json"]
+    plug :fetch_session
+    plug :put_secure_browser_headers
+    plug CORSPlug
   end
 
   scope "/api", HubApiWeb do
@@ -24,13 +26,9 @@ defmodule HubApiWeb.Router do
     resources "/classes", ClassController, only: [:index]
     resources "/reviews", ReviewController
 
-    # get "/auth", AuthController, :index
-    # patch "/auth", AuthController, :update
-    # post "/auth/login", AuthController, :login
     post "/users/register", UserRegistrationController, :create
-    # post "/auth/confirm_email", AuthController, :confirm_email
-    # post "/auth/forgot_password", AuthController, :forgot_password
-    # post "/auth/reset_password", AuthController, :reset_password
+    post "/users/login", UserSessionController, :create
+    delete "/users/logout", UserSessionController, :delete
   end
 
   scope "/", HubApiWeb do
