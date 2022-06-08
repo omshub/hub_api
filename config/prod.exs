@@ -14,6 +14,23 @@ config :hub_api, HubApiWeb.Endpoint, cache_static_manifest: "priv/static/cache_m
 # Do not print debug messages in production
 config :logger, level: :info
 
+config :cors_plug,
+  origin: [
+    ~r/https?:\/\/(.+\.)?omshub\.(org)(:\d{1,5})?$/,
+    "https://omshub-api.gigalixirapp.com/"
+  ],
+  headers: [
+    "Access-Control-Allow-Origin",
+    "Access-Control-Allow-Credentials",
+    "Access-Control-Expose-Headers",
+    "Access-Control-Allow-Headers",
+    "Access-Control-Allow-Methods",
+    "Pragma",
+    "Expires",
+    "Cache-Control",
+    "Content-Type"
+  ]
+
 # ## SSL Support
 #
 # To get SSL working, you will need to add the `https` key

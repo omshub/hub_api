@@ -33,10 +33,11 @@ defmodule HubApi.DataEngine do
     load_readonly_data("https://omshub-data.s3.amazonaws.com/data/omscentral_reviews.json")
     |> Jason.decode!()
     |> Enum.map(fn review ->
-      created_timestamp = review["created"]
-      |> String.to_integer()
-      |> DateTime.from_unix!(:millisecond)
-      |> DateTime.truncate(:second)
+      created_timestamp =
+        review["created"]
+        |> String.to_integer()
+        |> DateTime.from_unix!(:millisecond)
+        |> DateTime.truncate(:second)
 
       data = Repo.get_by(LegacyReview, created: created_timestamp)
       rating = if review["rating"], do: String.to_integer(review["rating"]), else: 0
