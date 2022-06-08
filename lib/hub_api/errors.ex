@@ -5,11 +5,5 @@ defmodule HubApi.Ecto.Errors do
         String.replace(acc, "%{#{key}}", to_string(value))
       end)
     end)
-
-    # |> Enum.reduce("", fn {k, v}, acc ->
-    #   IO.inspect(v)
-    #   # joined_errors = Enum.join(v, "; ")
-    #   # "#{acc}#{k}: #{joined_errors}\\n"
-    # end)
   end
 end

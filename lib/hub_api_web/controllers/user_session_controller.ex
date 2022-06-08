@@ -12,8 +12,8 @@ defmodule HubApiWeb.UserSessionController do
     else
       # In order to prevent user enumeration attacks, don't disclose whether the email is registered.
       conn
-        |> put_status(401)
-        |> json("Invalid email or password")
+      |> put_status(401)
+      |> json("Invalid email or password")
     end
   end
 

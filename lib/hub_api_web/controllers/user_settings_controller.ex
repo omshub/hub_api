@@ -15,19 +15,18 @@ defmodule HubApiWeb.UserSettingsController do
     user = conn.assigns.current_user
 
     case Accounts.apply_user_email(user, password, user_params) do
-      {:ok, applied_user} ->
-        Accounts.deliver_update_email_instructions(
-          applied_user,
-          user.email,
-          &Routes.user_settings_url(conn, :confirm_email, &1)
-        )
+      {:ok, _} ->
+        # Accounts.deliver_update_email_instructions(
+        #   applied_user,
+        #   user.email,
+        #   &Routes.user_settings_url(conn, :confirm_email, &1)
+        # )
 
         conn
         |> put_flash(
           :info,
           "A link to confirm your email change has been sent to the new address."
         )
-        |> redirect(to: Routes.user_settings_path(conn, :edit))
 
       {:error, changeset} ->
         render(conn, "edit.html", email_changeset: changeset)
@@ -41,8 +40,6 @@ defmodule HubApiWeb.UserSettingsController do
     case Accounts.update_user_password(user, password, user_params) do
       {:ok, user} ->
         conn
-        |> put_flash(:info, "Password updated successfully.")
-        |> put_session(:user_return_to, Routes.user_settings_path(conn, :edit))
         |> UserAuth.log_in_user(user)
 
       {:error, changeset} ->
@@ -55,12 +52,10 @@ defmodule HubApiWeb.UserSettingsController do
       :ok ->
         conn
         |> put_flash(:info, "Email changed successfully.")
-        |> redirect(to: Routes.user_settings_path(conn, :edit))
 
       :error ->
         conn
         |> put_flash(:error, "Email change link is invalid or it has expired.")
-        |> redirect(to: Routes.user_settings_path(conn, :edit))
     end
   end
 
